@@ -114,15 +114,7 @@ class BotApi
      */
     const MAX_TRACKED_EVENTS = 200;
 
-    /**
-     * Url prefixes
-     */
-    const URL_PREFIX = 'https://api.telegram.org/bot';
-
-    /**
-     * Url prefix for files
-     */
-    const FILE_URL_PREFIX = 'https://api.telegram.org/file/bot';
+    protected $apiUrl = 'https://api.telegram.org';
 
     /**
      * CURL object
@@ -180,6 +172,16 @@ class BotApi
         if ($trackerToken) {
             $this->tracker = new Botan($trackerToken);
         }
+    }
+
+    public function getApiUrl()
+    {
+        return $this->apiUrl;
+    }
+
+    public function setApiUrl($apiUrl)
+    {
+        $this->apiUrl = $apiUrl;
     }
 
     /**
@@ -1253,7 +1255,7 @@ class BotApi
      */
     public function getUrl()
     {
-        return self::URL_PREFIX.$this->token;
+        return "{$this->apiUrl}/bot{$this->token}";
     }
 
     /**
@@ -1261,7 +1263,7 @@ class BotApi
      */
     public function getFileUrl()
     {
-        return self::FILE_URL_PREFIX.$this->token;
+        return "{$this->apiUrl}/file/bot{$this->token}";
     }
 
     /**
